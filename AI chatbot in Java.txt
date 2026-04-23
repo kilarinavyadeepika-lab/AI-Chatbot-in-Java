@@ -1,0 +1,50 @@
+import java.util.*;
+
+public class AIChatbot {
+    private static Map<String, String> knowledgeBase = new HashMap<>();
+    private static List<String> conversationLog = new ArrayList<>();
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("🤖 Hello! I am a simple AI Chatbot. Type 'exit' to quit.");
+
+        // Initialize knowledge base
+        knowledgeBase.put("hi", "Hello! How can I help you?");
+        knowledgeBase.put("how are you", "I'm doing great, thanks for asking!");
+        knowledgeBase.put("your name", "I am EasyAI, your chatbot assistant.");
+        knowledgeBase.put("bye", "Goodbye! Have a nice day.");
+
+        while (true) {
+            System.out.print("You: ");
+            String userInput = sc.nextLine().toLowerCase().trim();
+
+            if (userInput.equals("exit")) {
+                log("User: " + userInput);
+                log("Bot: Goodbye! Take care.");
+                System.out.println("Bot: Goodbye! Take care.");
+                break;
+            }
+
+            // Rule-based intent recognition
+            String response = knowledgeBase.getOrDefault(userInput, "Sorry, I don't understand that.");
+            System.out.println("Bot: " + response);
+
+            // Log the conversation
+            log("User: " + userInput);
+            log("Bot: " + response);
+        }
+
+        // Print full conversation log
+        System.out.println("\n📜 Conversation Log:");
+        for (String line : conversationLog) {
+            System.out.println(line);
+        }
+
+        sc.close();
+    }
+
+    // Add messages to log
+    private static void log(String message) {
+        conversationLog.add(message);
+    }
+}
